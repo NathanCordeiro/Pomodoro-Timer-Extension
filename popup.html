@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 320px;
+            padding: 20px;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #fafafa;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .timer {
+            font-size: 3.5em;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            color: #1a1a1a;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .phase {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-size: 0.95em;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        button.start {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button.start:hover {
+            background-color: #43a047;
+        }
+
+        button.stop {
+            background-color: #ef5350;
+            color: white;
+        }
+
+        button.stop:hover {
+            background-color: #e53935;
+        }
+
+        .settings {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .settings-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .setting-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .setting-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        input[type="number"] {
+            width: 70px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #eee;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 1s linear;
+        }
+
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .alert-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 80%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .alert-message {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .alert-button {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="phase" id="phase">Work Time</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <div class="timer" id="timer">25:00</div>
+        <div class="controls">
+            <button class="start" id="startBtn">Start</button>
+            <button class="stop" id="stopBtn">Stop</button>
+        </div>
+        <div class="settings">
+            <div class="settings-title">Timer Settings</div>
+            <div class="setting-group">
+                <span class="setting-label">Work Duration (min)</span>
+                <input type="number" id="workDuration" min="1" max="60" value="25">
+            </div>
+            <div class="setting-group">
+                <span class="setting-label">Short Break (min)</span>
+                <input type="number" id="shortBreak" min="1" max="30" value="5">
+            </div>
+            <div class="setting-group">
+                <span class="setting-label">Long Break (min)</span>
+                <input type="number" id="longBreak" min="1" max="60" value="15">
+            </div>
+        </div>
+    </div>
+    <div class="alert-overlay" id="alertOverlay">
+        <div class="alert-box">
+          <div class="alert-title" id="alertTitle"></div>
+          <div class="alert-message" id="alertMessage"></div>
+          <button class="alert-button" id="alertButton">Start Next Timer</button>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

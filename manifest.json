@@ -1,0 +1,38 @@
+{
+    "manifest_version": 3,
+    "name": "Pomodoro Timer",
+    "version": "1.0",
+    "description": "A simple Pomodoro timer to boost your productivity",
+    "permissions": [
+        "storage",
+        "notifications",
+        "alarms",
+        "audio"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/timer16.png",
+            "48": "icons/timer48.png",
+            "128": "icons/timer128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/timer16.png",
+        "48": "icons/timer48.png",
+        "128": "icons/timer128.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "notification.mp3"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
